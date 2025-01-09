@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "537475990111",
+    "project_id": "football-coach-app-6003d",
+    "storage_bucket": "football-coach-app-6003d.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:537475990111:android:c155c0c14600622757d1ea",
+        "android_client_info": {
+          "package_name": "com.kameer.football_coach_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB__Qe2FVBovYhT1PzvpEwadLQOAzAw7Zs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -18,14 +18,12 @@ Future<List<Team>> teamList(ref) async {
   }
 
   try {
-    log("starting");
     final data = await supabase
         .from('teams')
         .select()
         .eq('created_by', firebaseUser.uid)
         .order('created_at', ascending: false);
 
-    log(data.toString());
 
     return (data as List<dynamic>).map((team) => Team.fromMap(team)).toList();
   } catch (error) {
@@ -43,20 +41,20 @@ Future<void> createTeam(ref, String inputname, String inputdescription) async {
   }
 
   try {
-    log("Creating a new team...");
+
 
     Team newteam = Team(id: null,name: inputname, description: inputdescription, createdBy: firebaseUser.uid, createdAt: DateTime.now());
 
 
     final response = await supabase.from('teams').insert(newteam.toMap());
 
-    if (response == null) {
+    if (response.isEmpty() || response == null) {
       throw Exception('Failed to create team');
     }
 
     ref.invalidate(teamListProvider);
 
-    log("Team created and list refreshed.");
+
   } catch (error) {
     throw Exception('Error creating team: $error');
   }

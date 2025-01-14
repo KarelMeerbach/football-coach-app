@@ -3,9 +3,11 @@ import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:football_coach_app/providers/player_provider.dart';
 import 'package:football_coach_app/providers/team_provider.dart';
 import 'package:football_coach_app/screens/dashboard_screen.dart';
 import 'package:football_coach_app/screens/edit_team_screen.dart';
+import 'package:football_coach_app/screens/team_player_screen.dart';
 
 var teamname = "";
 var teamdesc = "";
@@ -18,6 +20,7 @@ class TeamScreen extends ConsumerWidget{
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final getTeam = ref.watch(getTeamByIdProvider(id!));
+    final playerService = ref.watch(playerListByTeamIdProvider(id!));
 
 
 
@@ -54,6 +57,7 @@ class TeamScreen extends ConsumerWidget{
               margin: const EdgeInsets.only(left: 30),
               child: const Text("Team Description:"),
             ),
+            const SizedBox(height: 5),
             Container(
               height: constraints.maxHeight / 15,
               width: constraints.maxWidth,
@@ -67,16 +71,44 @@ class TeamScreen extends ConsumerWidget{
                 child: Text(teamdesc),
               ),
             ),
-            const SizedBox(height: 5),
-            Container(
-              height: constraints.maxHeight / 3.2,
-              width: constraints.maxWidth,
-              decoration: BoxDecoration(
-                border: Border.all(color: CupertinoColors.inactiveGray, width: 3),
-                borderRadius: const BorderRadius.all(Radius.circular(25)),
-              ),
-              margin: const EdgeInsets.only(left: 20.0, right: 20.0)
+            const SizedBox(height: 2),
+            Container(alignment: Alignment.centerLeft, margin: EdgeInsets.only(left: 30),child: const Text("Players: "),),
+            const SizedBox(height: 2),
+            GestureDetector(child: Container(
+                height: constraints.maxHeight / 3.2,
+                width: constraints.maxWidth,
+                decoration: BoxDecoration(
+                  border: Border.all(color: CupertinoColors.inactiveGray, width: 3),
+                  borderRadius: const BorderRadius.all(Radius.circular(25)),
+                ),
+                margin: const EdgeInsets.only(left: 20.0, right: 20.0),
+                child: Column(children: [
+                  playerService.when(data: (players) {
+                    if (players.isEmpty) {
+                      return const Center(child: Text("No teams created yet."));
+                    }
+                    return Expanded(child: ListView.builder(
+                      itemCount: players.length,
+                      itemBuilder: (context, index){
+                        final player = players[index];
+                        return Container(
+                          margin: const EdgeInsets.only(left: 5.0, right: 5.0, top: 5.0, bottom: 5.0),
+                          decoration: BoxDecoration(border: Border.all(color: CupertinoColors.inactiveGray, width: 1.5), borderRadius: BorderRadius.all(Radius.circular(60))),
+                          child: ListTile(
+                            title: Text("${player.first_name} ${player.last_name}", style: TextStyle(fontSize: 15),),
+                            subtitle: Text("${player.position} ${player.competition_type} ${player.country}", style: const TextStyle(fontSize: 13),),
+                          ),
+                        );
+                      },
+                    ),);
+                  }, error: (error, stackTrace) => Center(child: Text('Error: $error')), loading: () => const Center(child: CircularProgressIndicator()))
+                ],)
             ),
+            onTap: (){
+              Navigator.push(context, MaterialPageRoute(builder: (context) => TeamPlayerScreen(team_id: id)));
+            },
+            ),
+
             const SizedBox(height: 5),
             Container(
               height: constraints.maxHeight / 3.2,

@@ -1,4 +1,5 @@
 class Player {
+  final int? id;
   final int team_id;
   final DateTime createdAt;
   final String first_name;
@@ -12,6 +13,7 @@ class Player {
 
 
   Player({
+    required this.id,
     required this.team_id,
     required this.createdAt,
     required this.first_name,
@@ -26,6 +28,7 @@ class Player {
 
   factory Player.fromMap(Map<String, dynamic> map) {
     return Player(
+      id: map["id"],
       team_id: map['team_id'],
       createdAt: DateTime.parse(map['created_at']),
       first_name: map['first_name'],

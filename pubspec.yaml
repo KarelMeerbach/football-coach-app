@@ -44,6 +44,7 @@ dependencies:
   crypto: ^3.0.6
   syncfusion_flutter_datepicker: ^28.1.39
   datepicker_dropdown: ^0.1.6
+  flutter_multi_select_items: ^0.4.3
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -3,10 +3,12 @@ import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:football_coach_app/providers/competition_provider.dart';
 import 'package:football_coach_app/providers/player_provider.dart';
 import 'package:football_coach_app/providers/team_provider.dart';
 import 'package:football_coach_app/screens/dashboard_screen.dart';
 import 'package:football_coach_app/screens/edit_team_screen.dart';
+import 'package:football_coach_app/screens/team_competition_screen.dart';
 import 'package:football_coach_app/screens/team_player_screen.dart';
 
 var teamname = "";
@@ -21,6 +23,7 @@ class TeamScreen extends ConsumerWidget{
   Widget build(BuildContext context, WidgetRef ref) {
     final getTeam = ref.watch(getTeamByIdProvider(id!));
     final playerService = ref.watch(playerListByTeamIdProvider(id!));
+    final compService = ref.watch(getCompetitionListByTeamIdProvider(id!));
 
 
 
@@ -110,14 +113,39 @@ class TeamScreen extends ConsumerWidget{
             ),
 
             const SizedBox(height: 5),
-            Container(
-              height: constraints.maxHeight / 3.2,
-              decoration: BoxDecoration(
-                border: Border.all(color: CupertinoColors.inactiveGray, width: 3),
-                borderRadius: const BorderRadius.all(Radius.circular(25)),
-              ),
-              margin: const EdgeInsets.only(left: 20.0, right: 20.0)
+            Container(alignment: Alignment.centerLeft, margin: EdgeInsets.only(left: 30),child: const Text("Competitions: "),),
+            GestureDetector(onTap: (){
+              Navigator.push(context, MaterialPageRoute(builder: (context) => TeamCompetitionScreen(team_id: id)));
+            },child: Container(
+                height: constraints.maxHeight / 3.2,
+                decoration: BoxDecoration(
+                  border: Border.all(color: CupertinoColors.inactiveGray, width: 3),
+                  borderRadius: const BorderRadius.all(Radius.circular(25)),
+                ),
+                margin: const EdgeInsets.only(left: 20.0, right: 20.0),
+              child: Column(children: [
+                compService.when(data: (comps) {
+                  if (comps.isEmpty) {
+                    return const Center(child: Text("No competitions created yet."));
+                  }
+                  return Expanded(child: ListView.builder(
+                    itemCount: comps.length,
+                    itemBuilder: (context, index){
+                      final comp = comps[index];
+                      return Container(
+                        margin: const EdgeInsets.only(left: 5.0, right: 5.0, top: 5.0, bottom: 5.0),
+                        decoration: BoxDecoration(border: Border.all(color: CupertinoColors.inactiveGray, width: 1.5), borderRadius: BorderRadius.all(Radius.circular(60))),
+                        child: ListTile(
+                          title: Text("${comp.name}", style: TextStyle(fontSize: 15),),
+                          subtitle: Text("${comp.competition_type} ${comp.createdAt}", style: const TextStyle(fontSize: 13),),
+                        ),
+                      );
+                    },
+                  ),);
+                }, error: (error, stackTrace) => Center(child: Text('Error: $error')), loading: () => const Center(child: CircularProgressIndicator()))
+              ],)
             ),
+            )
           ],
         );
       }),

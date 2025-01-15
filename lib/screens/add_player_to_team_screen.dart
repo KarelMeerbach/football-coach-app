@@ -70,13 +70,15 @@ class AddPlayerToTeamScreen extends ConsumerWidget{
                 try{
                   DateTime birthday = DateTime(_selectedYear, _selectedMonth, _selectedDay);
                   
-                  var player = Player(team_id: team_id!, createdAt: DateTime.now(), first_name: _first_name.text, last_name: _last_name.text, gender: initGenderValue, competition_type: initCompetitionValue, birthdate: birthday, country: initCountryValue, position: initPositionValue, secondary_position: null);
+                  var player = Player(id: null,team_id: team_id!, createdAt: DateTime.now(), first_name: _first_name.text, last_name: _last_name.text, gender: initGenderValue, competition_type: initCompetitionValue, birthdate: birthday, country: initCountryValue, position: initPositionValue, secondary_position: null);
                   
                   await ref.read(addPlayerToTeamProvider(player).future);
 
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(content: Text('Player Created Successfully!')),
                   );
+
+                  ref.watch(playerListByTeamIdProvider(team_id!));
 
                   Navigator.of(context).pop();
                 }catch(e){

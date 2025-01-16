@@ -8,10 +8,12 @@ import 'package:football_coach_app/providers/match_provider.dart';
 import 'package:football_coach_app/providers/player_in_match_provider.dart';
 import 'package:football_coach_app/screens/add_players_to_match.dart';
 import 'package:football_coach_app/screens/grade_screen.dart';
+import 'package:football_coach_app/screens/player_profile_screen.dart';
 
 import 'login_screen.dart';
 
 String match_title = "";
+bool? match_finished = false;
 DateTime createdAt = DateTime(0000);
 
 
@@ -20,6 +22,7 @@ class MatchScreen extends ConsumerWidget{
 
   final int? team_id;
   final int? match_id;
+
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -30,7 +33,7 @@ class MatchScreen extends ConsumerWidget{
     var getMatchStarters = ref.watch(getAllStartingPlayersInMatchProvider(match_id!));
     var getMatchSubs = ref.watch(getAllSubPlayersInMatchProvider(match_id!));
 
-    getMatch.when(data: (match)  => ReplaceValues(match.title, match.match_date), error: (error, stackTrace) => Center(child: Text('Error: $error')), loading: () => const Center(child: CircularProgressIndicator()));
+    getMatch.when(data: (match)  => ReplaceValues(match.title, match.match_date, match.finsihed), error: (error, stackTrace) => Center(child: Text('Error: $error')), loading: () => const Center(child: CircularProgressIndicator()));
     
     return Scaffold(
       appBar: AppBar(
@@ -73,6 +76,9 @@ class MatchScreen extends ConsumerWidget{
                     itemBuilder: (context, index){
                       final starter = starters[index];
                       return Container(child: ListTile(
+                        onTap: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (builder) => PlayerProfileScreen(player_id: starter.id)));
+                        },
                       title: Text("${starter.first_name} ${starter.last_name}", style: TextStyle(fontSize: 15),),
                       subtitle: Text("${starter.position} ${starter.competition_type} ${starter.country}", style: const TextStyle(fontSize: 13),),
                       ));
@@ -109,7 +115,7 @@ class MatchScreen extends ConsumerWidget{
             height: constraints.maxHeight / 6.5,
             margin: const EdgeInsets.only(left: 5, right: 5),
             decoration: BoxDecoration(border: Border.all(color: CupertinoColors.inactiveGray), borderRadius: BorderRadius.all(Radius.circular(30))),
-            child: Column(
+            child: match_finished == false ? Column(
               children: [
                 GestureDetector(onTap: (){
                   Navigator.push(context, MaterialPageRoute(builder: (builder) => AddPlayersToMatch(match_id: match_id, team_id: team_id,)));
@@ -119,7 +125,7 @@ class MatchScreen extends ConsumerWidget{
                   Navigator.push(context, MaterialPageRoute(builder: (builder) => GradeScreen(match_id: match_id)));
                 }, child: Container(width: constraints.maxWidth * 0.95,height: constraints.maxHeight / 6.5 / 2.5, decoration: BoxDecoration(border: Border.all(color: Colors.red), borderRadius: BorderRadius.all(Radius.circular(45))), child: Container(alignment: Alignment.center, child: Text("END MATCH"),),),),
               ],
-            ),
+            ): Container(height: constraints.maxHeight / 6.5,),
           )
         ],
         );
@@ -130,7 +136,9 @@ class MatchScreen extends ConsumerWidget{
 
 }
 
-void ReplaceValues(String title, DateTime date) {
+void ReplaceValues(String title, DateTime date, bool fin) {
   match_title = title;
   createdAt = date;
+  match_finished = fin;
+
 }

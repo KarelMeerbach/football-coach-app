@@ -44,3 +44,25 @@ Future<void> addPlayerToTeam(ref, Player player) async {
     throw Exception("Failed to create player: $err");
   }
 }
+
+@riverpod
+Future<Player> getPlayerByid(ref, int id) async {
+  final supabase = Supabase.instance.client;
+  final firebaseUser = FirebaseAuth.instance.currentUser;
+
+  if (firebaseUser == null) {
+    throw Exception("User not logged in");
+  }
+
+  try {
+    final data = await supabase
+        .from('players')
+        .select()
+        .eq('id', id).single();
+
+
+    return Player.fromMap(data);
+  } catch (error) {
+    throw Exception('Error fetching teams: $error');
+  }
+}

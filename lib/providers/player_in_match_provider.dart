@@ -95,6 +95,22 @@ Future<List<Player>> getAllPlayersInMatch(ref, int match_id) async{
 }
 
 @riverpod
+Future<List<PlayerInMatch>> getAllPlayersInMatchInMatch(ref, int match_id) async{
+  final supabase = Supabase.instance.client;
+
+  try {
+    final data = await supabase
+        .from('playerinmatch')
+        .select().eq("match_id", match_id).order("role", ascending: true);
+
+    return (data as List<dynamic>).map((player) => PlayerInMatch.fromMap(player)).toList();
+
+  } catch (error) {
+    throw Exception('Error fetching teams: $error');
+  }
+}
+
+@riverpod
 Future<List<Player>> getAllSubPlayersInMatch(ref, int match_id) async{
   final supabase = Supabase.instance.client;
 

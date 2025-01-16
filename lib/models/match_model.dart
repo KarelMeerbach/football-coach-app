@@ -5,6 +5,7 @@ class Match {
   final DateTime created_at;
   final String title;
   final String created_by;
+  final bool finsihed;
 
   Match({
     required this.id,
@@ -13,6 +14,7 @@ class Match {
     required this.created_at,
     required this.title,
     required this.created_by,
+    required this.finsihed
   });
 
   factory Match.fromMap(Map<String, dynamic> map) {
@@ -22,7 +24,8 @@ class Match {
       match_date: DateTime.parse(map['match_date']),
       created_at: DateTime.parse(map['created_at']),
       title: map['title'],
-      created_by: map['created_by']
+      created_by: map['created_by'],
+      finsihed: map['finish']
     );
   }
 
@@ -33,6 +36,7 @@ class Match {
       'created_by': created_by,
       'created_at': created_at.toIso8601String(),
       'title': title,
+      'finish': finsihed
     };
   }
 }

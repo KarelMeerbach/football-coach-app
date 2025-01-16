@@ -37,5 +37,16 @@ Future<Match> getMatchById(ref, int match_id) async {
   } catch (error) {
     throw Exception('Error fetching teams: $error');
   }
-  
+}
+
+@riverpod
+Future<void> finishMatchById(ref, int match_id) async {
+  final supabase = Supabase.instance.client;
+  try {
+    final data = await supabase.from("matches").update({"finish": true}).eq("id", match_id);
+
+    return;
+  } catch (error) {
+    throw Exception('Error fetching teams: $error');
+  }
 }

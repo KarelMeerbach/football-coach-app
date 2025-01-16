@@ -7,6 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:football_coach_app/providers/match_provider.dart';
 import 'package:football_coach_app/providers/player_in_match_provider.dart';
 import 'package:football_coach_app/screens/add_players_to_match.dart';
+import 'package:football_coach_app/screens/grade_screen.dart';
 
 import 'login_screen.dart';
 
@@ -115,7 +116,7 @@ class MatchScreen extends ConsumerWidget{
                 }, child: Container(width: constraints.maxWidth * 0.95,height: constraints.maxHeight / 6.5 / 2.5, decoration: BoxDecoration(border: Border.all(color: Colors.green), borderRadius: BorderRadius.all(Radius.circular(45))), child: Container(alignment: Alignment.center, child: Text("ADD PLAYERS"),),),),
                 SizedBox(height: 10,),
                 GestureDetector(onTap: (){
-
+                  Navigator.push(context, MaterialPageRoute(builder: (builder) => GradeScreen(match_id: match_id)));
                 }, child: Container(width: constraints.maxWidth * 0.95,height: constraints.maxHeight / 6.5 / 2.5, decoration: BoxDecoration(border: Border.all(color: Colors.red), borderRadius: BorderRadius.all(Radius.circular(45))), child: Container(alignment: Alignment.center, child: Text("END MATCH"),),),),
               ],
             ),
@@ -123,7 +124,8 @@ class MatchScreen extends ConsumerWidget{
         ],
         );
     },
-    ));
+    )
+    );
   }
 
 }

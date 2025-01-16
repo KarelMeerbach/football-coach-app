@@ -7,27 +7,27 @@ import 'package:football_coach_app/models/player_in_match_model.dart';
 import 'package:football_coach_app/providers/player_in_match_provider.dart';
 import 'package:football_coach_app/providers/player_provider.dart';
 import 'package:football_coach_app/enums/ERole.dart';
+import 'package:football_coach_app/screens/add_subplayers_to_match.dart';
 
 import '../models/player_model.dart';
 
 
+List<Player> playersList = [];
 
+Set<String> playerSet = {};
 
 class AddPlayersToMatch extends ConsumerWidget{
   AddPlayersToMatch({super.key, required this.match_id, required this.team_id});
 
 
-  final MultiSelectController<String> _controller = MultiSelectController();
-
   final int? team_id;
   final int? match_id;
-
-  List<Player> playersList = [];
-
 
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    playerSet.clear();
+
     var players = ref.watch(playerListByTeamIdProvider(team_id!));
     
     players.when(data: (players){
@@ -37,17 +37,9 @@ class AddPlayersToMatch extends ConsumerWidget{
     return Scaffold(
       appBar: AppBar(title: Text("Add the starting eleven"),),
       body: Column(children: [
-        Expanded(
-          child: MultiSelectCheckList(
-              items: List.generate(playersList.length, (index) => CheckListCard(
-                  value: playersList[index].id,
-                  title: Text(playersList[index].first_name + " " + playersList[index].last_name),
-                  subtitle: Text(playersList[index].competition_type + " " + playersList[index].position)
-              )),
-              onChange: (allSelectedItems, selectedItem) {}),
-        ),
+        PlayerListBuild(),
         ElevatedButton(onPressed: (){
-          var startingPlayers = _controller.getSelectedItems();
+          var startingPlayers = playerSet;
           List<PlayerInMatch> playersInMatch = [];
           for(var starter in startingPlayers){
             playersInMatch.add(PlayerInMatch(id: null, player_id: int.parse(starter), match_id: match_id!, minutes_played: null, starting_position: null, alternative_position: null, role: Role.starter.name));
@@ -55,18 +47,40 @@ class AddPlayersToMatch extends ConsumerWidget{
 
           List<Player> newList = [];
           for(var player in playersList){
-            for(var playerNew in startingPlayers){
-              if(player.id == int.parse(playerNew)){
-                newList.add(player);
-              }
+            if(!startingPlayers.contains(player.id.toString())){
+              newList.add(player);
             }
           }
 
-          ref.watch(insertPlayerIntoMatchProvider(playersInMatch));
+
+          Navigator.push(context, MaterialPageRoute(builder: (builder) => AddSubPlayersToMatch(match_id: match_id, team_id: team_id, playersList: newList, starterList: playersInMatch,)));
 
         }, child: Text("Add Players to the Starting Lineup")),
         const SizedBox(height: 50,)
       ],)
     );
+  }
+}
+
+class PlayerListBuild  extends StatefulWidget {
+  const PlayerListBuild({super.key});
+
+  @override
+  State<PlayerListBuild> createState() => _PlayerListBuild();
+}
+
+class _PlayerListBuild extends State<PlayerListBuild> {
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+        child: ListView.builder(itemBuilder: (context, index){
+          final player = playersList[index];
+          return ListTile(title: Text(player.first_name), onTap: (){setState(() {
+            if(playerSet.contains(player.id.toString())){
+              playerSet.remove(player.id.toString());
+            }else{
+              playerSet.add(player.id.toString());
+            }});}, selected: playerSet.contains(player.id.toString()), selectedTileColor: Colors.blue.withOpacity(0.5),);
+        }, itemCount: playersList.length,));
   }
 }

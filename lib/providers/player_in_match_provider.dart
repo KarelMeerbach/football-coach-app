@@ -53,9 +53,41 @@ Future<List<Player>> getAllStartingPlayersInMatch(ref, int match_id) async{
       return [];
     }
 
-    final response = await supabase.from('players').select().eq('id', ids);
+    final response = await supabase.from('players').select().inFilter('id', ids_strings);
 
-    return (data as List<dynamic>).map((player) => Player.fromMap(player)).toList();
+    return (response as List<dynamic>).map((player) => Player.fromMap(player)).toList();
+
+  } catch (error) {
+    throw Exception('Error fetching teams: $error');
+  }
+}
+
+@riverpod
+Future<List<Player>> getAllPlayersInMatch(ref, int match_id) async{
+  final supabase = Supabase.instance.client;
+
+  try {
+    final data = await supabase
+        .from('playerinmatch')
+        .select('player_id').eq("match_id", match_id).order("role", ascending: true);
+
+    var ids = data.toList();
+
+
+
+    var ids_strings = [];
+
+    for(var id in ids){
+      ids_strings.add(int.parse(id["player_id"].toString()));
+    }
+
+    if(ids_strings.isEmpty){
+      return [];
+    }
+
+    final response = await supabase.from('players').select().inFilter('id', ids_strings);
+
+    return (response as List<dynamic>).map((player) => Player.fromMap(player)).toList();
 
   } catch (error) {
     throw Exception('Error fetching teams: $error');
@@ -83,7 +115,7 @@ Future<List<Player>> getAllSubPlayersInMatch(ref, int match_id) async{
       return [];
     }
 
-    final response = await supabase.from('players').select().eq('id', ids);
+    final response = await supabase.from('players').select().inFilter("id", ids_strings);
 
     return (response as List<dynamic>).map((player) => Player.fromMap(player)).toList();
 

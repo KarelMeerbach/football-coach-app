@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import '../screens/login_screen.dart';
+import '../screens/auth/login_screen.dart';
 import '../widgets/theme_toggle_button.dart';
 
 class DefaultAppbar extends StatelessWidget implements PreferredSizeWidget {

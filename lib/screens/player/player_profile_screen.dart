@@ -9,7 +9,7 @@ import 'package:football_coach_app/models/player_grade_model.dart';
 import 'package:football_coach_app/providers/grade_provider.dart';
 import 'package:football_coach_app/providers/player_provider.dart';
 
-import '../widgets/default_appbar.dart';
+import '../../widgets/default_appbar.dart';
 
 var player_name = "";
 var player_lastname = "";

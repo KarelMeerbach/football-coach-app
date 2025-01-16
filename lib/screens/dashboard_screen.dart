@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:football_coach_app/providers/team_provider.dart';
-import 'package:football_coach_app/screens/create_team_screen.dart';
-import 'package:football_coach_app/screens/team_screen.dart';
+import 'package:football_coach_app/screens/team/create_team_screen.dart';
+import 'package:football_coach_app/screens/team/team_screen.dart';
 import 'package:football_coach_app/widgets/default_appbar.dart';
-import 'login_screen.dart'; // Your login screen
+import 'auth/login_screen.dart'; // Your login screen
 
 class DashboardScreen extends ConsumerWidget {
   const DashboardScreen({super.key});

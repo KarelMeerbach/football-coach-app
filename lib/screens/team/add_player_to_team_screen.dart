@@ -10,13 +10,13 @@ import 'package:football_coach_app/enums/EPositions.dart';
 import 'package:football_coach_app/models/player_model.dart';
 import 'package:football_coach_app/providers/player_provider.dart';
 import 'package:football_coach_app/providers/team_provider.dart';
-import 'package:football_coach_app/screens/register_screen.dart';
+import 'package:football_coach_app/screens/auth/register_screen.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:football_coach_app/enums/EGender.dart';
 import 'package:football_coach_app/enums/ECountries.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
-import '../widgets/default_appbar.dart';
+import '../../widgets/default_appbar.dart';
 
 var gender_values = Gender.values.map((e) => e.name).toList();
 var country_values = Countries.values.map((e) => e.name).toList();

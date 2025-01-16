@@ -7,9 +7,9 @@ import 'package:football_coach_app/providers/competition_provider.dart';
 import 'package:football_coach_app/providers/player_provider.dart';
 import 'package:football_coach_app/providers/team_provider.dart';
 import 'package:football_coach_app/screens/dashboard_screen.dart';
-import 'package:football_coach_app/screens/edit_team_screen.dart';
-import 'package:football_coach_app/screens/team_competition_screen.dart';
-import 'package:football_coach_app/screens/team_player_screen.dart';
+import 'package:football_coach_app/screens/team/edit_team_screen.dart';
+import 'package:football_coach_app/screens/competition/team_competition_screen.dart';
+import 'package:football_coach_app/screens/team/team_player_screen.dart';
 
 var teamname = "";
 var teamdesc = "";

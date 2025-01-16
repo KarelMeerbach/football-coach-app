@@ -6,12 +6,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:football_coach_app/providers/match_provider.dart';
 import 'package:football_coach_app/providers/player_in_match_provider.dart';
-import 'package:football_coach_app/screens/add_players_to_match.dart';
-import 'package:football_coach_app/screens/grade_screen.dart';
-import 'package:football_coach_app/screens/player_profile_screen.dart';
+import 'package:football_coach_app/screens/match/add_players_to_match.dart';
+import 'package:football_coach_app/screens/grade/grade_screen.dart';
+import 'package:football_coach_app/screens/player/player_profile_screen.dart';
 
-import '../widgets/default_appbar.dart';
-import 'login_screen.dart';
+import '../../widgets/default_appbar.dart';
+import '../auth/login_screen.dart';
 
 String match_title = "";
 bool? match_finished = false;

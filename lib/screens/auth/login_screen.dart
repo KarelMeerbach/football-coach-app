@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:football_coach_app/screens/dashboard_screen.dart';
-import '../providers/auth_providers.dart';
-import '../widgets/default_appbar.dart';
+import '../../providers/auth_providers.dart';
+import '../../widgets/default_appbar.dart';
 import 'register_screen.dart';
 
 class LoginScreen extends ConsumerWidget {

@@ -6,7 +6,7 @@ import 'package:football_coach_app/providers/auth_providers.dart';
 import 'package:football_coach_app/providers/theme_provider.dart';
 import 'package:football_coach_app/screens/dashboard_screen.dart';
 import 'package:football_coach_app/themes/AppThemes.dart';
-import 'screens/login_screen.dart';
+import 'screens/auth/login_screen.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 void main() async {

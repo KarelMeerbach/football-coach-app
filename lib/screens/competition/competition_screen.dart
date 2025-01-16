@@ -6,9 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:football_coach_app/providers/competition_provider.dart';
 import 'package:football_coach_app/providers/match_provider.dart';
-import 'package:football_coach_app/screens/match_screen.dart';
-import '../widgets/default_appbar.dart';
-import 'login_screen.dart';
+import 'package:football_coach_app/screens/match/match_screen.dart';
+import '../../widgets/default_appbar.dart';
+import '../auth/login_screen.dart';
 
 String comp_name = "";
 

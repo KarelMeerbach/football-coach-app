@@ -7,11 +7,11 @@ import 'package:football_coach_app/models/player_in_match_model.dart';
 import 'package:football_coach_app/providers/player_in_match_provider.dart';
 import 'package:football_coach_app/providers/player_provider.dart';
 import 'package:football_coach_app/enums/ERole.dart';
-import 'package:football_coach_app/screens/add_subplayers_to_match.dart';
-import 'package:football_coach_app/screens/match_screen.dart';
+import 'package:football_coach_app/screens/match/add_subplayers_to_match.dart';
+import 'package:football_coach_app/screens/match/match_screen.dart';
 
-import '../models/player_model.dart';
-import '../widgets/default_appbar.dart';
+import '../../models/player_model.dart';
+import '../../widgets/default_appbar.dart';
 
 
 

@@ -9,9 +9,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:uuid/uuid.dart';
 
-import '../models/users_model.dart';
-import '../providers/auth_providers.dart';
-import '../widgets/default_appbar.dart'; // For UUID generation (optional)
+import '../../models/users_model.dart';
+import '../../providers/auth_providers.dart';
+import '../../widgets/default_appbar.dart'; // For UUID generation (optional)
 
 
 class RegisterScreen extends ConsumerWidget {

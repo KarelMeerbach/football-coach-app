@@ -2,10 +2,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:football_coach_app/providers/team_provider.dart';
-import 'package:football_coach_app/screens/register_screen.dart';
+import 'package:football_coach_app/screens/auth/register_screen.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-import '../widgets/default_appbar.dart';
+import '../../widgets/default_appbar.dart';
 
 class CreateTeamScreen extends ConsumerWidget{
 

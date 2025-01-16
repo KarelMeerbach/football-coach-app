@@ -16,6 +16,8 @@ import 'package:football_coach_app/enums/EGender.dart';
 import 'package:football_coach_app/enums/ECountries.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
+import '../widgets/default_appbar.dart';
+
 var gender_values = Gender.values.map((e) => e.name).toList();
 var country_values = Countries.values.map((e) => e.name).toList();
 var competition_type_values = Competition_type.values.map((e) => e.name).toList();
@@ -43,7 +45,7 @@ class AddPlayerToTeamScreen extends ConsumerWidget{
   Widget build(BuildContext context, WidgetRef ref){
     
     return Scaffold(
-      appBar: AppBar(title: Text("Add player to team"),),
+      appBar: DefaultAppbar(title: "Add player to a team"),
       body: Padding(padding: const EdgeInsets.all(16.0),
         child: Column(
             mainAxisAlignment: MainAxisAlignment.center,

@@ -11,6 +11,7 @@ import 'package:football_coach_app/screens/competition_screen.dart';
 import 'package:football_coach_app/screens/create_team_screen.dart';
 import 'package:football_coach_app/screens/team_screen.dart';
 import '../providers/player_provider.dart';
+import '../widgets/default_appbar.dart';
 import 'login_screen.dart'; // Your login screen
 
 var teamname = "";
@@ -30,30 +31,7 @@ class TeamCompetitionScreen extends ConsumerWidget {
     getTeam.when(data: (team)  => ReplaceValues(team.name, team.description), error: (error, stackTrace) => Center(child: Text('Error: $error')), loading: () => const Center(child: CircularProgressIndicator()));
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Team $teamname competitions'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.exit_to_app),
-            onPressed: () async {
-              try {
-                // Log out from Firebase
-                await FirebaseAuth.instance.signOut();
-
-                // After sign-out, navigate to the login screen
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (context) => LoginScreen()),
-                );
-              } catch (e) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text('Error logging out: $e')),
-                );
-              }
-            },
-          ),
-        ],
-      ),
+      appBar: DefaultAppbar(title: "Team $teamname competitions"),
       body: Column(children: [
         competitionService.when(data: (comps) {
           if (comps.isEmpty) {

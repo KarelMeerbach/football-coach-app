@@ -21,7 +21,6 @@ Future<void> insertGradeInBulk(ref, List<PlayerGrade> grades) async {
   }
 
   try {
-    log(maps.toString());
     final data = await supabase.from("playergrades").insert(maps);
 
     if (data.isEmpty() || data == null) {
@@ -37,10 +36,26 @@ Future<void> insertGradeInBulk(ref, List<PlayerGrade> grades) async {
 @riverpod
 Future<List<PlayerGrade>> getPlayerGradesByPlayerId(ref, int id) async {
   final supabase = Supabase.instance.client;
-  try{
-    final data = await supabase.from("playergrades").select().eq("player_id", id);
 
-    return (data as List<dynamic>).map((match) => PlayerGrade.fromMap(match)).toList();
+  try{
+    log("go");
+    final data = await supabase.from("playerinmatch").select().eq("player_id", id);
+
+
+    var pims = (data as List<dynamic>).map((pim) => PlayerInMatch.fromMap(pim)).toList();
+
+
+
+    var ids = [];
+    for(var pim in pims){
+      ids.add(pim.id);
+    }
+
+    final response = await supabase.from("playergrades").select().inFilter("player_in_match_id", ids);
+
+    log(response.toString());
+
+    return (response as List<dynamic>).map((match) => PlayerGrade.fromMap(match)).toList();
   }catch(err){
     throw Exception(err);
   }
@@ -50,15 +65,14 @@ Future<List<PlayerGrade>> getPlayerGradesByPlayerId(ref, int id) async {
 Future<DateTime> getGradeMatchDate(ref, PlayerGrade grade) async {
   final supabase = Supabase.instance.client;
   var playerInMatch_id = grade.player_in_match_id;
-
   try{
-    final data = supabase.from("playerinmatch").select().eq("id", playerInMatch_id).single();
+    final data = await supabase.from("playerinmatch").select().eq("id", playerInMatch_id).single();
 
     int match_id = PlayerInMatch.fromMap(data as Map<String, dynamic>).match_id;
 
-    final response = supabase.from("matches").select().eq("id", match_id).single();
+    final response = await supabase.from("matches").select().eq("id", match_id).single();
 
-    return Match.fromMap(response as Map<String, dynamic>).match_date;
+    return Match.fromMap(response).match_date;
   }catch(err){
     throw Exception(err);
   }
@@ -70,11 +84,11 @@ Future<String> getGradeCategoryName(ref, PlayerGrade grade) async {
   var cat_id = grade.category_id;
 
   try{
-    final data = supabase.from("gradecategories").select().eq("id", cat_id).single();
+    final data = await supabase.from("gradecategories").select().eq("id", cat_id).single();
 
-    return GradeCategory.fromMap(data as Map<String, dynamic>).category_name;
+    return GradeCategory.fromMap(data).category_name;
   }catch(err){
     throw Exception(err);
   }
-
 }
+

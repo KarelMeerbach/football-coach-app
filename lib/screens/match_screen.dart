@@ -10,6 +10,7 @@ import 'package:football_coach_app/screens/add_players_to_match.dart';
 import 'package:football_coach_app/screens/grade_screen.dart';
 import 'package:football_coach_app/screens/player_profile_screen.dart';
 
+import '../widgets/default_appbar.dart';
 import 'login_screen.dart';
 
 String match_title = "";
@@ -26,9 +27,6 @@ class MatchScreen extends ConsumerWidget{
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    log(match_id.toString());
-    log(team_id.toString());
-
     var getMatch = ref.watch(getMatchByIdProvider(match_id!));
     var getMatchStarters = ref.watch(getAllStartingPlayersInMatchProvider(match_id!));
     var getMatchSubs = ref.watch(getAllSubPlayersInMatchProvider(match_id!));
@@ -36,29 +34,7 @@ class MatchScreen extends ConsumerWidget{
     getMatch.when(data: (match)  => ReplaceValues(match.title, match.match_date, match.finsihed), error: (error, stackTrace) => Center(child: Text('Error: $error')), loading: () => const Center(child: CircularProgressIndicator()));
     
     return Scaffold(
-      appBar: AppBar(
-        title: Text(match_title),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.exit_to_app),
-            onPressed: () async {
-              try {
-                // Log out from Firebase
-                await FirebaseAuth.instance.signOut();
-                // After sign-out, navigate to the login screen
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (context) => LoginScreen()),
-                );
-              } catch (e) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text('Error logging out: $e')),
-                );
-              }
-            },
-          ),
-        ],
-      ),
+        appBar: DefaultAppbar(title: match_title),
       body: LayoutBuilder(builder: (context, BoxConstraints constraints){
         return Column(
         children: [
@@ -102,6 +78,9 @@ class MatchScreen extends ConsumerWidget{
                     itemBuilder: (context, index){
                       final starter = starters[index];
                       return Container(child: ListTile(
+                        onTap: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (builder) => PlayerProfileScreen(player_id: starter.id)));
+                        },
                         title: Text("${starter.first_name} ${starter.last_name}", style: TextStyle(fontSize: 15),),
                         subtitle: Text("${starter.position} ${starter.competition_type} ${starter.country}", style: const TextStyle(fontSize: 13),),
                       ));

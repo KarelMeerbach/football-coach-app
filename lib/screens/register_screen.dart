@@ -10,7 +10,8 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:uuid/uuid.dart';
 
 import '../models/users_model.dart';
-import '../providers/auth_providers.dart'; // For UUID generation (optional)
+import '../providers/auth_providers.dart';
+import '../widgets/default_appbar.dart'; // For UUID generation (optional)
 
 
 class RegisterScreen extends ConsumerWidget {
@@ -26,7 +27,7 @@ class RegisterScreen extends ConsumerWidget {
     final supabase = Supabase.instance.client;
 
     return Scaffold(
-      appBar: AppBar(title: Text("Register")),
+      appBar: DefaultAppbar(title: "Register"),//appBar: AppBar(title: Text("Register")),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(

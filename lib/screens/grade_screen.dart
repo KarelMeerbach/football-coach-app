@@ -15,6 +15,7 @@ import 'package:football_coach_app/providers/player_in_match_provider.dart';
 import 'package:football_coach_app/providers/team_provider.dart';
 
 import '../models/player_model.dart';
+import '../widgets/default_appbar.dart';
 
 List<Player> playerList = [];
 List<GradeCategory> gradeCategories = [];
@@ -61,7 +62,7 @@ class GradeScreen extends ConsumerWidget{
     }
 
     return Scaffold(
-      appBar: AppBar(title: Text("Player Grading"),),
+      appBar: DefaultAppbar(title: "Player Grading"),
       body: GradeBody(),
     );
   }

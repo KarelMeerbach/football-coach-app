@@ -11,6 +11,7 @@ import 'package:football_coach_app/screens/add_subplayers_to_match.dart';
 import 'package:football_coach_app/screens/match_screen.dart';
 
 import '../models/player_model.dart';
+import '../widgets/default_appbar.dart';
 
 
 
@@ -32,7 +33,7 @@ class AddSubPlayersToMatch extends ConsumerWidget{
     playerSet.clear();
 
     return Scaffold(
-        appBar: AppBar(title: Text("Add the subs "),),
+        appBar: DefaultAppbar(title: "Add subs"),
         body: Column(children: [
           PlayerListBuild(playersList),
           ElevatedButton(onPressed: (){
@@ -63,7 +64,7 @@ class AddSubPlayersToMatch extends ConsumerWidget{
 
             Navigator.push(context, MaterialPageRoute(builder: (builder)=>MatchScreen(match_id: match_id, team_id: team_id)));
 
-          }, child: Text("Add Players to the Starting Lineup")),
+          }, child: Text("Add Players to the Sub Lineup")),
           const SizedBox(height: 50,)
         ],)
     );

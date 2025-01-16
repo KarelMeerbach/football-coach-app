@@ -10,6 +10,7 @@ import 'package:football_coach_app/enums/ERole.dart';
 import 'package:football_coach_app/screens/add_subplayers_to_match.dart';
 
 import '../models/player_model.dart';
+import '../widgets/default_appbar.dart';
 
 
 List<Player> playersList = [];
@@ -35,7 +36,7 @@ class AddPlayersToMatch extends ConsumerWidget{
     }, error: (error, stackTrace) => Center(child: Text('Error: $error')), loading: () => const Center(child: CircularProgressIndicator()));
 
     return Scaffold(
-      appBar: AppBar(title: Text("Add the starting eleven"),),
+      appBar: DefaultAppbar(title: "Add the starting eleven"),
       body: Column(children: [
         PlayerListBuild(),
         ElevatedButton(onPressed: (){

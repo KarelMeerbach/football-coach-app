@@ -7,6 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:football_coach_app/providers/competition_provider.dart';
 import 'package:football_coach_app/providers/match_provider.dart';
 import 'package:football_coach_app/screens/match_screen.dart';
+import '../widgets/default_appbar.dart';
 import 'login_screen.dart';
 
 String comp_name = "";
@@ -27,29 +28,7 @@ class CompetitionScreen extends ConsumerWidget{
     getTeam.when(data: (comp)  => ReplaceValues(comp.name), error: (error, stackTrace) => Center(child: Text('Error: $error')), loading: () => const Center(child: CircularProgressIndicator()));
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(comp_name),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.exit_to_app),
-            onPressed: () async {
-              try {
-                // Log out from Firebase
-                await FirebaseAuth.instance.signOut();
-                // After sign-out, navigate to the login screen
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (context) => LoginScreen()),
-                );
-              } catch (e) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text('Error logging out: $e')),
-                );
-              }
-            },
-          ),
-        ],
-      ),
+        appBar: DefaultAppbar(title: comp_name),
       body: getMatch.when(
           data: (matches){
             if(matches.isEmpty){

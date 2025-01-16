@@ -5,6 +5,8 @@ import 'package:football_coach_app/providers/team_provider.dart';
 import 'package:football_coach_app/screens/register_screen.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import '../widgets/default_appbar.dart';
+
 class CreateTeamScreen extends ConsumerWidget{
 
 
@@ -14,7 +16,7 @@ class CreateTeamScreen extends ConsumerWidget{
   @override
   Widget build(BuildContext context, WidgetRef ref){
     return Scaffold(
-      appBar: AppBar(title: Text("Create a team"),),
+      appBar: DefaultAppbar(title: "Create a team"),
       body: Padding(padding: const EdgeInsets.all(16.0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,

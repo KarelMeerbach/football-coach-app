@@ -9,6 +9,7 @@ import 'package:football_coach_app/screens/add_player_to_team_screen.dart';
 import 'package:football_coach_app/screens/create_team_screen.dart';
 import 'package:football_coach_app/screens/team_screen.dart';
 import '../providers/player_provider.dart';
+import '../widgets/default_appbar.dart';
 import 'login_screen.dart'; // Your login screen
 
 var teamname = "";
@@ -28,30 +29,7 @@ class TeamPlayerScreen extends ConsumerWidget {
     getTeam.when(data: (team)  => ReplaceValues(team.name, team.description), error: (error, stackTrace) => Center(child: Text('Error: $error')), loading: () => const Center(child: CircularProgressIndicator()));
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Team $teamname players'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.exit_to_app),
-            onPressed: () async {
-              try {
-                // Log out from Firebase
-                await FirebaseAuth.instance.signOut();
-
-                // After sign-out, navigate to the login screen
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (context) => LoginScreen()),
-                );
-              } catch (e) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text('Error logging out: $e')),
-                );
-              }
-            },
-          ),
-        ],
-      ),
+      appBar: DefaultAppbar(title: "Team $teamname players"),
       body: Column(children: [
         playerService.when(data: (players) {
           if (players.isEmpty) {

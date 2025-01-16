@@ -5,6 +5,8 @@ import 'package:football_coach_app/providers/team_provider.dart';
 import 'package:football_coach_app/screens/register_screen.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import '../widgets/default_appbar.dart';
+
 class EditTeamScreen extends ConsumerWidget{
   EditTeamScreen({super.key, required this.id});
 
@@ -27,7 +29,7 @@ class EditTeamScreen extends ConsumerWidget{
 
 
     return Scaffold(
-      appBar: AppBar(title: Text("Edit Team"),),
+      appBar: DefaultAppbar(title: "Edit Teams"),
       body: Padding(padding: const EdgeInsets.all(16.0),
         child: Column(
             mainAxisAlignment: MainAxisAlignment.center,

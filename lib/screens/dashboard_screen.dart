@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:football_coach_app/providers/team_provider.dart';
 import 'package:football_coach_app/screens/create_team_screen.dart';
 import 'package:football_coach_app/screens/team_screen.dart';
+import 'package:football_coach_app/widgets/default_appbar.dart';
 import 'login_screen.dart'; // Your login screen
 
 class DashboardScreen extends ConsumerWidget {
@@ -16,33 +17,9 @@ class DashboardScreen extends ConsumerWidget {
     final teamSerivce = ref.watch(teamListProvider);
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('My Teams'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.exit_to_app),
-            onPressed: () async {
-              try {
-                // Log out from Firebase
-                await FirebaseAuth.instance.signOut();
-
-                // After sign-out, navigate to the login screen
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (context) => LoginScreen()),
-                );
-              } catch (e) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text('Error logging out: $e')),
-                );
-              }
-            },
-          ),
-        ],
-      ),
+      appBar: DefaultAppbar(title: "My Teams"),
       body: teamSerivce.when(
         data: (teams) {
-          log("Rendering team list with ${teams.length} teams.");
           if (teams.isEmpty) {
             return const Center(child: Text("No teams created yet."));
           }

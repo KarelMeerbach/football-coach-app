@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:football_coach_app/providers/competition_provider.dart';
 import 'package:football_coach_app/providers/team_provider.dart';
+import 'package:football_coach_app/screens/competition/create_competition_screen.dart';
 import 'package:football_coach_app/screens/team/add_player_to_team_screen.dart';
 import 'package:football_coach_app/screens/competition/competition_screen.dart';
 import '../../widgets/default_appbar.dart';
@@ -51,7 +52,7 @@ class TeamCompetitionScreen extends ConsumerWidget {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.of(context)
-              .push(MaterialPageRoute(builder: (context) => AddPlayerToTeamScreen(team_id: team_id)))
+              .push(MaterialPageRoute(builder: (context) => CreateCompetitionScreen(teamId: team_id.toString())))
               .then((_) {
             ref.invalidate(teamListProvider); // Refresh the list after adding a player
           });
@@ -61,7 +62,6 @@ class TeamCompetitionScreen extends ConsumerWidget {
     );
   }
 
-  /// 🔹 Build Competition Card with Modern Styling
   Widget _buildCompetitionCard(BuildContext context, dynamic comp) {
     return GestureDetector(
       onTap: () {
@@ -101,7 +101,6 @@ class TeamCompetitionScreen extends ConsumerWidget {
     );
   }
 
-  /// 🔹 Replace the team name and description for display purposes
   void ReplaceValues(String name, String desc) {
     teamname = name;
     teamdesc = desc;

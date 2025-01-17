@@ -52,8 +52,7 @@ class AddPlayersToMatch extends ConsumerWidget{
               newList.add(player);
             }
           }
-
-
+          ref.invalidate(getAllStartingPlayersInMatchProvider);
           Navigator.push(context, MaterialPageRoute(builder: (builder) => AddSubPlayersToMatch(match_id: match_id, team_id: team_id, playersList: newList, starterList: playersInMatch,)));
 
         }, child: Text("Add Players to the Starting Lineup")),

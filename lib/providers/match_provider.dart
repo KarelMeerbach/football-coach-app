@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:football_coach_app/models/match_model.dart';
@@ -48,5 +50,20 @@ Future<void> finishMatchById(ref, int match_id) async {
     return;
   } catch (error) {
     throw Exception('Error fetching teams: $error');
+  }
+}
+
+@riverpod
+Future<void> createMatch(ref, Match match) async {
+  final supabase = Supabase.instance.client;
+  try{
+
+    final data = await supabase.from("matches").insert(match.toMap()).select();
+
+
+    return;
+
+  }catch(err){
+    throw Exception('Error fetching teams: $err');
   }
 }

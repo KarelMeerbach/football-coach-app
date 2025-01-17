@@ -44,3 +44,19 @@ Future<Competition> getCompetitionById(ref, int comp_id) async{
     throw Exception('Error fetching comp: $error');
   }
 }
+
+@riverpod
+Future<void> insertCompetition(ref, Competition competition) async{
+  final supabase = Supabase.instance.client;
+
+  try {
+    final data = await supabase
+        .from('competitions')
+        .insert(competition.toMap())
+        .select();
+
+    return;
+  } catch (error) {
+    throw Exception('Error fetching comp: $error');
+  }
+}

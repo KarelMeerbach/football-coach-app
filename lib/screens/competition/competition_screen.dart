@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:football_coach_app/providers/competition_provider.dart';
 import 'package:football_coach_app/providers/match_provider.dart';
+import 'package:football_coach_app/screens/match/create_match_screen.dart';
 import 'package:football_coach_app/screens/match/match_screen.dart';
 import '../../widgets/default_appbar.dart';
 import '../auth/login_screen.dart';
@@ -45,10 +46,10 @@ class CompetitionScreen extends ConsumerWidget {
           loading: () => const Center(child: CircularProgressIndicator()),
         ),
       ),
+      floatingActionButton: FloatingActionButton(child: const Icon(Icons.add),onPressed: ()=>Navigator.push(context, MaterialPageRoute(builder: (builder)=>CreateMatchPage(competition_id: comp_id!,)))),
     );
   }
 
-  /// 🔹 Build the GridView of Matches
   Widget _buildMatchGrid(BuildContext context, List matches, ThemeData theme) {
     return GridView.builder(
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -65,7 +66,6 @@ class CompetitionScreen extends ConsumerWidget {
     );
   }
 
-  /// 🔹 Build a Card for Each Match with Modern Styling
   Widget _buildMatchCard(BuildContext context, match, ThemeData theme) {
     return GestureDetector(
       onTap: () {
@@ -111,7 +111,6 @@ class CompetitionScreen extends ConsumerWidget {
     );
   }
 
-  /// 🔹 Replace Competition Name (for title in app bar)
   void ReplaceValues(String name) {
     comp_name = name;
   }

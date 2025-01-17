@@ -23,7 +23,7 @@ Future<void> insertPlayerIntoMatch(ref, List<PlayerInMatch> playersInMatch) asyn
   try {
     final data = await supabase
         .from('playerinmatch')
-        .insert(maps);
+        .insert(maps).select();
 
     return;
 

@@ -54,14 +54,15 @@ class AddSubPlayersToMatch extends ConsumerWidget{
 
             try{
               ref.read(insertPlayerIntoMatchProvider(starterList));
+              ref.invalidate(getAllStartingPlayersInMatchProvider);
               ref.read(insertPlayerIntoMatchProvider(playersInMatch));
+              ref.invalidate(getAllStartingPlayersInMatchProvider);
+              ref.invalidate(getAllSubPlayersInMatchProvider);
             }catch(err){
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(content: Text('Error: $err')),);
             }
-            ref.invalidate(getAllStartingPlayersInMatchProvider);
-            ref.invalidate(getAllSubPlayersInMatchProvider);
-
+            
             Navigator.push(context, MaterialPageRoute(builder: (builder)=>MatchScreen(match_id: match_id, team_id: team_id)));
 
           }, child: Text("Add Players to the Sub Lineup")),

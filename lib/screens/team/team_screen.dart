@@ -134,12 +134,12 @@ class TeamScreen extends ConsumerWidget {
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
-        color: Colors.grey.shade100,
+        color: Colors.white10,
         border: Border.all(color: Colors.grey.shade400),
       ),
       child: Text(
         description,
-        style: const TextStyle(fontSize: 16),
+        style: const TextStyle(fontSize: 16, color: Colors.blue),
       ),
     );
   }
@@ -151,9 +151,9 @@ class TeamScreen extends ConsumerWidget {
       child: Container(
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: Colors.black12,
           borderRadius: BorderRadius.circular(15),
-          border: Border.all(color: Colors.grey.shade400),
+          border: Border.all(color: Colors.black12),
           boxShadow: [
             BoxShadow(
               color: Colors.grey.withOpacity(0.2),

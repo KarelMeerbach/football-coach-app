@@ -46,6 +46,7 @@ dependencies:
   datepicker_dropdown: ^0.1.6
   flutter_multi_select_items: ^0.4.3
   fl_chart: ^0.70.2
+  mockito: ^5.4.5
 dev_dependencies:
   flutter_test:
     sdk: flutter

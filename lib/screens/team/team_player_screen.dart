@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:football_coach_app/providers/team_provider.dart';
+import 'package:football_coach_app/screens/player/player_profile_screen.dart';
 import 'package:football_coach_app/screens/team/add_player_to_team_screen.dart';
 import 'package:football_coach_app/screens/team/create_team_screen.dart';
 import 'package:football_coach_app/screens/team/team_screen.dart';
@@ -43,6 +44,7 @@ class TeamPlayerScreen extends ConsumerWidget {
                 margin: const EdgeInsets.only(left: 5.0, right: 5.0, top: 5.0, bottom: 5.0),
                 decoration: BoxDecoration(border: Border.all(color: CupertinoColors.inactiveGray, width: 1.5), borderRadius: BorderRadius.all(Radius.circular(60))),
                 child: ListTile(
+                  onTap: ()=>Navigator.push(context, MaterialPageRoute(builder: (builder)=>PlayerProfileScreen(player_id: player.id))),
                   title: Text("${player.first_name} ${player.last_name}", style: TextStyle(fontSize: 15),),
                   subtitle: Text("${player.position} ${player.competition_type} ${player.country}", style: const TextStyle(fontSize: 13),),
                 ),

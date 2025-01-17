@@ -68,7 +68,6 @@ class TeamScreen extends ConsumerWidget {
     );
   }
 
-  /// 🔹 AppBar with Popup Menu
   AppBar _buildAppBar(BuildContext context, WidgetRef ref, String name) {
     return AppBar(
       title: Text(name),
@@ -93,7 +92,6 @@ class TeamScreen extends ConsumerWidget {
     );
   }
 
-  /// 🔹 Delete Confirmation Dialog
   void _showDeleteDialog(BuildContext context, WidgetRef ref, int id, String teamName) {
     showDialog(
       context: context,
@@ -120,7 +118,6 @@ class TeamScreen extends ConsumerWidget {
     );
   }
 
-  /// 🔹 Section Title
   Widget _buildSectionTitle(String title) {
     return Text(
       title,
@@ -128,7 +125,6 @@ class TeamScreen extends ConsumerWidget {
     );
   }
 
-  /// 🔹 Description Box
   Widget _buildDescriptionBox(String description) {
     return Container(
       padding: const EdgeInsets.all(16),
@@ -175,7 +171,6 @@ class TeamScreen extends ConsumerWidget {
     );
   }
 
-  /// 🔹 Player List
   Widget _buildPlayerList(BuildContext context, WidgetRef ref, AsyncValue<List> playerService, BoxConstraints constraints) {
     return playerService.when(
       data: (players) {
@@ -199,7 +194,6 @@ class TeamScreen extends ConsumerWidget {
     );
   }
 
-  /// 🔹 Player Card
   Widget _buildPlayerCard(dynamic player) {
     return Card(
       elevation: 2,
@@ -213,7 +207,6 @@ class TeamScreen extends ConsumerWidget {
     );
   }
 
-  /// 🔹 Competition List
   Widget _buildCompetitionList(BuildContext context, WidgetRef ref, AsyncValue<List> compService, BoxConstraints constraints) {
     return compService.when(
       data: (competitions) {
@@ -237,7 +230,6 @@ class TeamScreen extends ConsumerWidget {
     );
   }
 
-  /// 🔹 Competition Card
   Widget _buildCompetitionCard(dynamic competition) {
     return Card(
       elevation: 2,

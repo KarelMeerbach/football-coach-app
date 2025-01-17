@@ -20,7 +20,6 @@ class _CreateCompetitionScreenState extends ConsumerState<CreateCompetitionScree
   final _formKey = GlobalKey<FormState>();
   String _competitionName = '';
   Competition_type _competitionType = Competition_type.kids; // Default type
-  String _createdBy = ''; // Assuming the logged-in user’s name or ID
   DateTime _createdAt = DateTime.now();
 
   // Controller for form fields
